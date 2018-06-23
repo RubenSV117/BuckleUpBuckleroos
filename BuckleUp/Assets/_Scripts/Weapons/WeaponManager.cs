@@ -44,13 +44,15 @@ public class WeaponManager : MonoBehaviour
         // add weapon to the list if not full and disable it
         if (weapons.Count < maxWeapons)
         {
-            modelSwap.weapons.Add(w.transform); // add to the list for WeaponModelSwap on the animator object
             weapons.Add(w); // add Weapon script to this list 
 
             //parent new weapon to unequipepd attach point 
             w.transform.SetParent(unequippedAttachPoint);
             w.transform.localPosition = Vector3.zero;
             w.transform.localEulerAngles = Vector3.zero;
+
+            foreach (var sr in w.SpriteRenderers)
+                sr.sortingOrder = unequippedWeaponSortOrder;
         }
     }
 

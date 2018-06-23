@@ -164,6 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4756083143700914}
   - component: {fileID: 82068878456652162}
+  - component: {fileID: 114861026884499944}
   m_Layer: 0
   m_Name: SR-MDK
   m_TagString: Untagged
@@ -692,6 +693,41 @@ MonoBehaviour:
   Speed: {x: -2, y: -3, z: 0}
   RotationSpeed: 720
   Lifetime: 0.5
+--- !u!114 &114861026884499944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1863370058703356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc9131f0caf4cf29ca4c5cf3b49e094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderers:
+  - {fileID: 212422029614182666}
+  - {fileID: 212678330745763528}
+  - {fileID: 212959695627540896}
+  - {fileID: 212302781854875916}
+  shootSpeed: 50
+  damage: 50
+  maxReloadAmmo: 10
+  maxClipAmmo: 4
+  projectile: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  firePoint: {fileID: 4837799509538192}
+  minRecoil: 0
+  maxRecoil: 0
+  autoFireRate: 1
+  burst: 0
+  fireBurstCount: 3
+  fireRate: 3
+  burstCooldown: 0.5
+  onShoot:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!198 &198057956629691892
 ParticleSystem:
   m_ObjectHideFlags: 1

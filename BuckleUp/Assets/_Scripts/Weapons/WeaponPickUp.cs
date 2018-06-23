@@ -33,6 +33,7 @@ public class WeaponPickUp : MonoBehaviour
 
             // activate interact button
             canvasEvents.SetInteractButton(true);
+            canvasEvents.SetInteractButtonIcon(weaponToPickup.SpriteRenderers[0].sprite);
         }
     }
 
@@ -52,8 +53,11 @@ public class WeaponPickUp : MonoBehaviour
 
     public void Equip()
     {
-        if(weaponToPickup)
+        if (weaponToPickup)
+        {
             weaponManger.Equip(weaponToPickup); // equip weapon on the players WeaponManager
+            canvasEvents.SetInteractButton(false);
+        }
 
         onPickUp.Invoke();
     }

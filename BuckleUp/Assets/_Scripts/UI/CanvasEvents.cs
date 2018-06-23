@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 /// <summary>
 /// Holds events for UI canvas
@@ -11,6 +12,7 @@ using UnityEngine.Events;
 public class CanvasEvents : MonoBehaviour
 {
     [SerializeField] private GameObject interactButton;
+    [SerializeField] private Image interactIcon;
 
     public delegate void Interact();
     public event Interact OnInteract;
@@ -24,5 +26,10 @@ public class CanvasEvents : MonoBehaviour
     {
         if(OnInteract != null)
             OnInteract.Invoke();
+    }
+
+    public void SetInteractButtonIcon(Sprite icon)
+    {
+        interactIcon.sprite = icon;
     }
 }
