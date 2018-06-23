@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using RootMotion.FinalIK;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,12 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private UnityEvent OnSprintBegin;
     [SerializeField] private UnityEvent OnSprintEnd;
-
-    [SerializeField] private AimIK aimIk;
-    [SerializeField] private SecondHandOnGun secondHandGun;
-
-    
-   
+     
     public bool isSprinting;
     public bool isRolling { get; private set; }
     private bool canControlMove = true;

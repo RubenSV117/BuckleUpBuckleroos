@@ -13,6 +13,7 @@ public class WeaponPickUp : MonoBehaviour
     [SerializeField] private UnityEvent onPickUp;
 
     private WeaponManager weaponManger; // WeaponManager of player that picks up this weapon
+    private Weapon weaponToPickup;
 
     private void Awake()
     {
@@ -25,6 +26,8 @@ public class WeaponPickUp : MonoBehaviour
         if (other.transform.root.GetComponent<Weapon>() != null && 
             !weaponManger.weapons.Contains(other.transform.root.GetComponent<Weapon>()))
         {
+            weaponToPickup = other.transform.root.GetComponent<Weapon>();
+
             // subscribe the interacting player's OnInteract event to Equip
             canvasEvents.OnInteract += Equip;
 
@@ -37,6 +40,8 @@ public class WeaponPickUp : MonoBehaviour
     {
         if (other.transform.root.GetComponent<Weapon>() != null)
         {
+            weaponToPickup = null;
+
             // unsubscribe the interacting player's OnInteract event to Equip
             canvasEvents.OnInteract -= Equip;
 
@@ -47,7 +52,8 @@ public class WeaponPickUp : MonoBehaviour
 
     public void Equip()
     {
-        weaponManger.Equip(GetComponent<Weapon>()); // equip weapon on the players WeaponManager
+        if(weaponToPickup)
+            weaponManger.Equip(weaponToPickup); // equip weapon on the players WeaponManager
 
         onPickUp.Invoke();
     }

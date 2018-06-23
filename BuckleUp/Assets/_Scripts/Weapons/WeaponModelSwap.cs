@@ -2,7 +2,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using RootMotion.FinalIK;
 
 /// <summary>
 /// Swaps parenting between equipped and unequipped weapons for the weapon swap animation
@@ -11,8 +10,6 @@ using RootMotion.FinalIK;
 /// Ruben Sanchez
 /// 6/5/18
 /// </summary>
-
-
 public class WeaponModelSwap : MonoBehaviour
 {
     public List<Transform> weapons; // weapon models currently on the player
@@ -22,9 +19,6 @@ public class WeaponModelSwap : MonoBehaviour
 
     [SerializeField] private Transform rightHand; // right hand bone on the humanoid
     [SerializeField] private Transform leftHand;  // left hand bone on the humanoid
-
-    [SerializeField] private AimIK aimIk; // reference to update it's aim target
-    [SerializeField] private SecondHandOnGun secondHand; // reference to turn off during the swapping animation
 
     private Transform equippedModel; // reference of which model is currently equipped
 
@@ -73,25 +67,6 @@ public class WeaponModelSwap : MonoBehaviour
 
             //if (w == equippedModel && w.GetComponent<ProjectileWeapon>())
             //    aimIk.solver.transform = w.GetComponent<ProjectileWeapon>().firePoint;
-        }
-    }
-
-    public void ToggleSecondHandIK()
-    {
-        secondHand.enabled = !secondHand.enabled;
-    }
-
-    public void DisableAimIKWeight()
-    {
-        aimIk.solver.SetIKPositionWeight(0);
-    }
-
-    public IEnumerator SmoothInAimIK()
-    {
-        while (aimIk.solver.GetIKPositionWeight() < 1)
-        {
-            aimIk.solver.SetIKPositionWeight(aimIk.solver.GetIKPositionWeight() + (Time.deltaTime * 12));
-            yield return null;
         }
     }
 }

@@ -634,6 +634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc9131f0caf4cf29ca4c5cf3b49e094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpriteRenderers: []
   shootSpeed: 30
   damage: 10
   maxReloadAmmo: 100
@@ -643,7 +644,7 @@ MonoBehaviour:
     type: 2}
   firePoint: {fileID: 4315765532011018}
   minRecoil: 0.2
-  maxRecoil: 0.5
+  maxRecoil: 1.5
   autoFireRate: 8
   burst: 0
   fireBurstCount: 3
