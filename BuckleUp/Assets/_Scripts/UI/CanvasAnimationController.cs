@@ -21,6 +21,6 @@ public class CanvasAnimationController : MonoBehaviour
         else
             weaponCycleAnim.Play("CycleLeft");
 
-        cycleRight = !cycleRight;print("ree");
+        cycleRight = !cycleRight;
     }
 }

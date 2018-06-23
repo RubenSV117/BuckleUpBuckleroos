@@ -10,54 +10,54 @@ using UnityEngine.Events;
 /// </summary>
 public class ProjectileWeapon : Weapon
 {
-    [SerializeField] private float shootSpeed;
-    [SerializeField] private int damage;
+    [SerializeField] protected float shootSpeed;
+    [SerializeField] protected int damage;
     [Tooltip("Total ammo not in the clip")]
-    [SerializeField] private int maxReloadAmmo;
-    [SerializeField] private int maxClipAmmo;
-    [SerializeField] private GameObject projectile;
-    [SerializeField] private ParticleSystem muzzleFlash;
-    [SerializeField] private Transform firePoint;
+    [SerializeField] protected int maxReloadAmmo;
+    [SerializeField] protected int maxClipAmmo;
+    [SerializeField] protected GameObject projectile;
+    [SerializeField] protected ParticleSystem muzzleFlash;
+    [SerializeField] protected Transform firePoint;
     [Tooltip("Minimum Offset")]
-    [SerializeField] private float minRecoil;
+    [SerializeField] protected float minRecoil;
     [Tooltip("Maximum Offset")]
-    [SerializeField] private float maxRecoil;
+    [SerializeField] protected float maxRecoil;
 
 
     [Header("Auto Mode")]
     [Tooltip("Shot per second on auto")]
     [SerializeField]
     [Range(1, 20)]
-    private float autoFireRate = 5f;
+    protected float autoFireRate = 5f;
 
     [Header("Burst Mode")]
     [SerializeField]
-    private bool burst;
+    protected bool burst;
 
     [Tooltip("Number of shots in one burst")]
     [SerializeField]
     [Range(1, 5)]
-    private int fireBurstCount = 3;
+    protected int fireBurstCount = 3;
 
     [Tooltip("Shots per second in a burst")]
     [SerializeField]
     [Range(1, 20)]
-    private float fireRate = 3;
+    protected float fireRate = 3;
 
     [Tooltip("Delay in between bursts")]
     [SerializeField]
     [Range(0, 3)]
-    private float burstCooldown = .5f;
+    protected float burstCooldown = .5f;
 
     [SerializeField] private UnityEvent onShoot;
 
-    private bool onCooldown;
-    private Coroutine burstFireCoroutine;
+    protected bool onCooldown;
+    protected Coroutine burstFireCoroutine;
 
-    private float currentReloadAmmo;
-    private float currentClipAmmo;
+    protected float currentReloadAmmo;
+    protected float currentClipAmmo;
 
-    private AudioSource audioS;
+    protected AudioSource audioS;
 
     private void OnDisable()
     {
@@ -99,13 +99,14 @@ public class ProjectileWeapon : Weapon
         }
     }
 
+    public override void OnEquip() { }
+    public override void OnUnequip() { }
+
     private void FireSingleShot()
     {
         // if weapon still has ammo in the clip
         if (currentClipAmmo > 0) 
         {
-            muzzleFlash.Play();
-
             currentClipAmmo--;
 
             // instantiate projectile
@@ -115,7 +116,7 @@ public class ProjectileWeapon : Weapon
             float offset = Random.Range(minRecoil, maxRecoil) * Random.Range(-1, 2); 
 
             Vector2 velocity = (Vector2) (offset * firePoint.up) +
-                               (Vector2) Vector3.Normalize(firePoint.right * transform.root.localScale.x) * shootSpeed;
+                               (Vector2) Vector3.Normalize(firePoint.right * (GameManager.Instance.LocalPlayer.isFacingRight ? 1 : -1)) * shootSpeed;
 
             // shoot projectile with offset from the recoil
             proj.Shoot(velocity);
@@ -179,6 +180,4 @@ public class ProjectileWeapon : Weapon
         yield return new WaitForSeconds(1f / autoFireRate);
         onCooldown = false;
     }
-
-
 }

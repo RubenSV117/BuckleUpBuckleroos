@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     public Transform AimTransform;
     public Transform FollowTransform;
 
+    [HideInInspector]
+    public bool isFacingRight;
+
     void Start()
     {
         GameManager.Instance.LocalPlayer = this;

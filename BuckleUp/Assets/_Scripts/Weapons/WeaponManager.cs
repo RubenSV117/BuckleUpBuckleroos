@@ -41,8 +41,31 @@ public class WeaponManager : MonoBehaviour
 
     public void Equip(Weapon w)
     {
-        // add weapon to the list if not full and disable it
-        if (weapons.Count < maxWeapons)
+        
+        // if at capacity, drop currently equipped weapon and equip the new weapon
+        if (weapons.Count == maxWeapons)
+        {
+            // drop currently equipped
+            equippedWeapon.OnUnequip();
+            weapons.Remove(equippedWeapon);
+            equippedWeapon.transform.SetParent(null);
+
+            weapons.Add(w); // add Weapon script to this list 
+
+            // parent new weapon to equipepd attach point 
+            w.transform.SetParent(equippedAttachPoint);
+            w.transform.localPosition = Vector3.zero;
+            w.transform.localEulerAngles = Vector3.zero;
+
+            // render  in front of the player
+            foreach (var sr in w.SpriteRenderers)
+                sr.sortingOrder = equippedWeaponSortOrder;
+
+            w.OnEquip();
+        }
+
+        // else pick up the weapon and move it to unequipped point
+        else if (weapons.Count < maxWeapons)
         {
             weapons.Add(w); // add Weapon script to this list 
 
@@ -51,9 +74,11 @@ public class WeaponManager : MonoBehaviour
             w.transform.localPosition = Vector3.zero;
             w.transform.localEulerAngles = Vector3.zero;
 
+            // render behind the player
             foreach (var sr in w.SpriteRenderers)
                 sr.sortingOrder = unequippedWeaponSortOrder;
         }
+
     }
 
     public void CycleWeapon()
@@ -68,8 +93,9 @@ public class WeaponManager : MonoBehaviour
 
         foreach (var sr in equippedWeapon.SpriteRenderers)
             sr.sortingOrder = unequippedWeaponSortOrder;
-        
 
+        equippedWeapon.OnUnequip();
+        
         // cycle equipped weapon to the next index
         equippedWeapon = weapons[(weapons.IndexOf(equippedWeapon) + 1) % weapons.Count];
 
@@ -78,9 +104,11 @@ public class WeaponManager : MonoBehaviour
         equippedWeapon.transform.localPosition = Vector2.zero;
         equippedWeapon.transform.localEulerAngles = Vector3.zero;
 
+        // render in front of the player
         foreach (var sr in equippedWeapon.SpriteRenderers)
             sr.sortingOrder = equippedWeaponSortOrder;
-        
+
+        equippedWeapon.OnEquip();
     }
 
     public void Attack()

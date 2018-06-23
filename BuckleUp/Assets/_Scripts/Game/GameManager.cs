@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using Cinemachine;
 using HutongGames.PlayMaker.Actions;
 using UnityEngine;
 
@@ -49,6 +50,7 @@ public class GameManager
     }
 
     private GameObject gameObj;
+
     private InputManager mInput;
     public InputManager Input
     {
@@ -60,4 +62,8 @@ public class GameManager
             return mInput;
         }
     }
+
+    public CinemachineVirtualCamera ActiveCam;
+
+    public float CameraLookAtOffset;
 }

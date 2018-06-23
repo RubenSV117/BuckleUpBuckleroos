@@ -13,4 +13,7 @@ public abstract class Weapon : MonoBehaviour
 {
     public List<SpriteRenderer> SpriteRenderers;
     public abstract void Attack();
+    public abstract void OnEquip();
+    public abstract void OnUnequip();
+
 }

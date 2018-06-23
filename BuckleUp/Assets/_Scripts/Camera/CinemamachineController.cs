@@ -17,23 +17,21 @@ public class CinemamachineController : MonoBehaviour
     [SerializeField] private GameObject aimCam;
     [SerializeField] private GameObject sprintCam;
 
+
+    private CinemachineVirtualCamera activeCam;
     private InputManager input;
 
     private void Awake()
     {
         GameManager.Instance.OnLocalPlayerJoined += TargetLocalPlayer;
-
-        input = GameManager.Instance.Input;
-
-        // subscribe all camera enabling methods to Input manager events
-        input.OnAimChange += AimCamChange;
-        input.OnSprintChange += SprintCamChange;
-    }
-
-    void Start ()
-    {
         ActivateCam(defaultCam);
-	}
+
+        //input = GameManager.Instance.Input;
+
+        //// subscribe all camera enabling methods to Input manager events
+        //input.OnAimChange += AimCamChange;
+        //input.OnSprintChange += SprintCamChange;
+    }
 
     // Activate target camera, deactive the rest
     public void ActivateCam(GameObject targetCam)
@@ -45,6 +43,9 @@ public class CinemamachineController : MonoBehaviour
             if (cam != targetCam)
                 cam.SetActive(false);
         }
+
+        activeCam = targetCam.GetComponent<CinemachineVirtualCamera>();
+        GameManager.Instance.ActiveCam = activeCam;
     }
 
     public void ActivateDefaultCam()
@@ -71,7 +72,7 @@ public class CinemamachineController : MonoBehaviour
         foreach (var cam in vCams)
         {
             cam.GetComponent<CinemachineVirtualCamera>().Follow = p.FollowTransform;
-            cam.GetComponent<CinemachineVirtualCamera>().m_LookAt = p.AimTransform;
+            //cam.GetComponent<CinemachineVirtualCamera>().m_LookAt = p.AimTransform;
         }
     }
 }

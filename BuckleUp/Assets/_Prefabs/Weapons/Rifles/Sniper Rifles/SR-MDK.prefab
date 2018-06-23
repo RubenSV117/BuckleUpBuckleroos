@@ -163,8 +163,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4756083143700914}
+  - component: {fileID: 114243525491813112}
   - component: {fileID: 82068878456652162}
-  - component: {fileID: 114861026884499944}
   m_Layer: 0
   m_Name: SR-MDK
   m_TagString: Untagged
@@ -374,7 +374,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1586187984177696}
   m_LocalRotation: {x: -0.00000014751392, y: -0.7071068, z: -0.00000014751392, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4938640421457316}
@@ -678,6 +678,44 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114243525491813112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1863370058703356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc608f3b7903524cad71042eeca4efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderers:
+  - {fileID: 212422029614182666}
+  - {fileID: 212678330745763528}
+  - {fileID: 212959695627540896}
+  - {fileID: 212302781854875916}
+  shootSpeed: 100
+  damage: 50
+  maxReloadAmmo: 8
+  maxClipAmmo: 4
+  projectile: {fileID: 1701300119429184, guid: 2f1528e8eeb230440843835aee171102, type: 2}
+  muzzleFlash: {fileID: 198580193678250706}
+  firePoint: {fileID: 4837799509538192}
+  minRecoil: 0
+  maxRecoil: 0
+  autoFireRate: 1
+  burst: 0
+  fireBurstCount: 3
+  fireRate: 3
+  burstCooldown: 0.5
+  onShoot:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  orthographicSizeIncrease: 5
+  cameraOffsetIncrease: 8.5
+  orthographicSwitchSpeed: 15
 --- !u!114 &114277917027270432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -693,41 +731,6 @@ MonoBehaviour:
   Speed: {x: -2, y: -3, z: 0}
   RotationSpeed: 720
   Lifetime: 0.5
---- !u!114 &114861026884499944
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1863370058703356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dc9131f0caf4cf29ca4c5cf3b49e094, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpriteRenderers:
-  - {fileID: 212422029614182666}
-  - {fileID: 212678330745763528}
-  - {fileID: 212959695627540896}
-  - {fileID: 212302781854875916}
-  shootSpeed: 50
-  damage: 50
-  maxReloadAmmo: 10
-  maxClipAmmo: 4
-  projectile: {fileID: 0}
-  muzzleFlash: {fileID: 0}
-  firePoint: {fileID: 4837799509538192}
-  minRecoil: 0
-  maxRecoil: 0
-  autoFireRate: 1
-  burst: 0
-  fireBurstCount: 3
-  fireRate: 3
-  burstCooldown: 0.5
-  onShoot:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!198 &198057956629691892
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -19192,8 +19195,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1618302301
+  m_SortingLayer: 2
   m_SortingOrder: 345
   m_Sprite: {fileID: 21300008, guid: 6cc5b9dc6adeae4459ec101fb818632e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -19237,8 +19240,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1289382651
-  m_SortingLayer: 1
+  m_SortingLayerID: -1618302301
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6cc5b9dc6adeae4459ec101fb818632e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -19327,8 +19330,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1618302301
+  m_SortingLayer: 2
   m_SortingOrder: 355
   m_Sprite: {fileID: 21300018, guid: 6cc5b9dc6adeae4459ec101fb818632e, type: 3}
   m_Color: {r: 0, g: 1, b: 1, a: 1}
@@ -19372,8 +19375,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1618302301
+  m_SortingLayer: 2
   m_SortingOrder: 320
   m_Sprite: {fileID: 21300002, guid: 6cc5b9dc6adeae4459ec101fb818632e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

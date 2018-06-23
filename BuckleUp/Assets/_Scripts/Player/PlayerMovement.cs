@@ -20,13 +20,15 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("In Seconds")]
     [SerializeField] private float rollLength;
     [SerializeField] private Transform alignedArm;
+    [SerializeField] private Transform rendererTransform;
 
     [SerializeField] private UnityEvent OnRollBegin;
     [SerializeField] private UnityEvent OnRollEnd;
 
     [SerializeField] private UnityEvent OnSprintBegin;
     [SerializeField] private UnityEvent OnSprintEnd;
-     
+
+    private bool isFacingRight;
     public bool isSprinting;
     public bool isRolling { get; private set; }
     private bool canControlMove = true;
@@ -34,7 +36,8 @@ public class PlayerMovement : MonoBehaviour
     private InputManager input;
     private Rigidbody2D rigidB;
     private Coroutine rollCoroutine;
-    private Transform mTransform;
+
+    private Player localPlayer;
 
     private void Awake()
     {
@@ -47,8 +50,9 @@ public class PlayerMovement : MonoBehaviour
         input.OnRoll += Roll;
         input.OnAttack += CancelSprint;
 
-        mTransform = transform;
-        originalScale = mTransform.localScale;
+        originalScale = rendererTransform.localScale;
+
+        localPlayer = GetComponent<Player>();
     }
 
     public void Move()
@@ -65,18 +69,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (input.AimDirection.magnitude != 0)
         {
-            mTransform.localScale = new Vector3(input.AimDirection.x > 0 ? originalScale.x : -originalScale.x, originalScale.y, originalScale.z);
+            rendererTransform.localScale = new Vector3(input.AimDirection.x > 0 ? originalScale.x : -originalScale.x, originalScale.y, originalScale.z);
 
-            alignedArm.right = input.AimDirection * transform.localScale.x;
+            alignedArm.right = input.AimDirection * rendererTransform.localScale.x;
+            localPlayer.isFacingRight = input.AimDirection.x > 0;
         }
    
         else if (input.MoveDirection.magnitude != 0)
         {
-            mTransform.localScale = new Vector3(input.MoveDirection.x > 0 ? originalScale.x : -originalScale.x, originalScale.y, originalScale.z);
+            rendererTransform.localScale = new Vector3(input.MoveDirection.x > 0 ? originalScale.x : -originalScale.x, originalScale.y, originalScale.z);
 
-            alignedArm.right = input.MoveDirection * transform.localScale.x;
+            alignedArm.right = input.MoveDirection * rendererTransform.localScale.x;
+            localPlayer.isFacingRight = input.MoveDirection.x > 0;
         }
-      
+
     }
 
 

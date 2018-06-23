@@ -2625,13 +2625,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1184877265614654}
-  m_LocalRotation: {x: -0, y: -0, z: 0.9029566, w: 0.42973173}
-  m_LocalPosition: {x: 0.20222668, y: 0.0029446802, z: 9.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0.8870109, w: 0.46174863}
+  m_LocalPosition: {x: 0.11, y: 0.24, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4015649828869278}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 129.099}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 125}
 --- !u!4 &4712372010583916
 Transform:
   m_ObjectHideFlags: 1
@@ -3471,12 +3471,11 @@ MonoBehaviour:
   maxReloadAmmo: 100
   maxClipAmmo: 20
   projectile: {fileID: 1074319443444484, guid: 2d00732857908ac4e8aea0dfe50fb987, type: 2}
-  muzzleFlash: {fileID: 198513537569721870, guid: e0532cac1d87185489378d27287d7f0d,
-    type: 2}
+  muzzleFlash: {fileID: 198746735761679090}
   firePoint: {fileID: 4629106845825730}
   minRecoil: 0.2
   maxRecoil: 1.5
-  autoFireRate: 8
+  autoFireRate: 10
   burst: 0
   fireBurstCount: 3
   fireRate: 3
@@ -3956,8 +3955,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da2382af43c8914392b1d38bb454337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damping: 0.5
-  lookAhead: 6
+  damping: 0.4
+  startingLookAhead: 4
   transformToMove: {fileID: 4717544057333586}
 --- !u!114 &114498488455496384
 MonoBehaviour:
@@ -3975,7 +3974,7 @@ MonoBehaviour:
   maxWeapons: 2
   equippedAttachPoint: {fileID: 4433900603021014}
   unequippedAttachPoint: {fileID: 4693544218049752}
-  unequippedWeaponSortOrder: 150
+  unequippedWeaponSortOrder: -1
   equippedWeaponSortOrder: 300
 --- !u!114 &114601443313508746
 MonoBehaviour:
@@ -4109,6 +4108,7 @@ MonoBehaviour:
   rollSpeedBoost: 3
   rollLength: 0.7
   alignedArm: {fileID: 4169891637708588}
+  rendererTransform: {fileID: 4934534967520998}
   OnRollBegin:
     m_PersistentCalls:
       m_Calls:
