@@ -12,7 +12,7 @@ public class Projectile : MonoBehaviour
     [HideInInspector]
     public int damage;
 
-    [SerializeField] private ParticleSystem impactParticle;
+    public ParticleSystem impactParticle;
 
     private Rigidbody2D rigidB;
 
