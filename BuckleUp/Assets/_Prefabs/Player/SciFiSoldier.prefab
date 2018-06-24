@@ -1289,6 +1289,7 @@ GameObject:
   - component: {fileID: 114036468450451334}
   - component: {fileID: 114498488455496384}
   - component: {fileID: 114269402499819002}
+  - component: {fileID: 114536510179484290}
   m_Layer: 0
   m_Name: SciFiSoldier
   m_TagString: Untagged
@@ -1562,6 +1563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4063976611504440}
   - component: {fileID: 61821990216111740}
+  - component: {fileID: 114059814763557158}
   m_Layer: 0
   m_Name: PickupTrigger
   m_TagString: Untagged
@@ -1627,8 +1629,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4632401813665458}
-  - component: {fileID: 58471638991310256}
   - component: {fileID: 114601443313508746}
+  - component: {fileID: 70651754773182494}
   m_Layer: 0
   m_Name: InteractTrigger
   m_TagString: Untagged
@@ -3159,21 +3161,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &58471638991310256
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1966631000108278}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.06}
-  serializedVersion: 2
-  m_Radius: 3
 --- !u!61 &61821990216111740
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -3213,6 +3200,21 @@ CapsuleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.012767792, y: 0.5129738}
   m_Size: {x: 1.4395065, y: 2.734541}
+  m_Direction: 0
+--- !u!70 &70651754773182494
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1966631000108278}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.015351057, y: 1.3136773}
+  m_Size: {x: 2.2930188, y: 3.2869368}
   m_Direction: 0
 --- !u!82 &82227795812438118
 AudioSource:
@@ -3434,6 +3436,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMove: {fileID: 114762759367608690}
+--- !u!114 &114059814763557158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1945953427092912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcdce73359b6e7b4bafb52ecd8a360f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114102830143174940
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3467,14 +3480,14 @@ MonoBehaviour:
   - {fileID: 212422910991442328}
   - {fileID: 212440096261423144}
   shootSpeed: 30
-  damage: 10
+  damage: 7
   maxReloadAmmo: 100
   maxClipAmmo: 20
   projectile: {fileID: 1074319443444484, guid: 2d00732857908ac4e8aea0dfe50fb987, type: 2}
   muzzleFlash: {fileID: 198746735761679090}
   firePoint: {fileID: 4629106845825730}
-  minRecoil: 0.2
-  maxRecoil: 1.5
+  minRecoil: 0.5
+  maxRecoil: 2
   autoFireRate: 10
   burst: 0
   fireBurstCount: 3
@@ -3976,6 +3989,21 @@ MonoBehaviour:
   unequippedAttachPoint: {fileID: 4693544218049752}
   unequippedWeaponSortOrder: -1
   equippedWeaponSortOrder: 300
+--- !u!114 &114536510179484290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1775428655420484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd592f332576d984fb62f8203a15e4d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AimTransform: {fileID: 4717544057333586}
+  FollowTransform: {fileID: 4717544057333586}
+  WeaponManager: {fileID: 0}
+  isFacingRight: 0
 --- !u!114 &114601443313508746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3987,12 +4015,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b16d46143ff93a46b66c5a914ae11e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasEvents: {fileID: 0}
-  onPickUp:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114727713034684364
 MonoBehaviour:
   m_ObjectHideFlags: 1

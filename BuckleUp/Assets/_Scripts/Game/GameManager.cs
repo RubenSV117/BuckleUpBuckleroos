@@ -44,7 +44,7 @@ public class GameManager
         {
             mLocalPlayer = value;
 
-            if(OnLocalPlayerJoined != null)
+            if (OnLocalPlayerJoined != null)
                 OnLocalPlayerJoined.Invoke(mLocalPlayer);
         }
     }
@@ -66,4 +66,9 @@ public class GameManager
     public CinemachineVirtualCamera ActiveCam;
 
     public float CameraLookAtOffset;
+
+    public WeaponManager mWeaponManager;
+
+    public CanvasEvents CanvasEvents;
+
 }

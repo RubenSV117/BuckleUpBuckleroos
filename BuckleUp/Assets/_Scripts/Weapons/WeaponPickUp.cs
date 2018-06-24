@@ -1,65 +1,38 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 
 /// <summary>
-/// Manages weapon pick ups
+/// Weapon pickup interaction
 /// 
 /// Ruben Sanchez
-/// 6/3/18
+/// 
 /// </summary>
-public class WeaponPickUp : MonoBehaviour
+
+public class WeaponPickUp : MonoBehaviour, IInteractable
 {
-    [SerializeField] private CanvasEvents canvasEvents;
-    [SerializeField] private UnityEvent onPickUp;
+    private Weapon weapon;
 
-    private WeaponManager weaponManger; // WeaponManager of player that picks up this weapon
-    private Weapon weaponToPickup;
-
-    private void Awake()
+    void Awake()
     {
-        weaponManger = GetComponentInParent<WeaponManager>();
+        weapon = GetComponentInParent<Weapon>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void InteractableBegin()
     {
-        // Entered weapon trigger 
-        if (other.transform.root.GetComponent<Weapon>() != null && 
-            !weaponManger.weapons.Contains(other.transform.root.GetComponent<Weapon>()))
-        {
-            weaponToPickup = other.transform.root.GetComponent<Weapon>();
-
-            // subscribe the interacting player's OnInteract event to Equip
-            canvasEvents.OnInteract += Equip;
-
-            // activate interact button
-            canvasEvents.SetInteractButton(true);
-            canvasEvents.SetInteractButtonIcon(weaponToPickup.SpriteRenderers[0].sprite);
-        }
+        GameManager.Instance.CanvasEvents.SetInteractButtonIcon(weapon.SpriteRenderers[0].sprite);
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    public void Interact()
     {
-        if (other.transform.root.GetComponent<Weapon>() != null)
-        {
-            weaponToPickup = null;
+        WeaponManager wm = GameManager.Instance.LocalPlayer.WeaponManager;
 
-            // unsubscribe the interacting player's OnInteract event to Equip
-            canvasEvents.OnInteract -= Equip;
+        if (!wm.weapons.Contains(weapon))
+            GameManager.Instance.LocalPlayer.WeaponManager.Equip(weapon);
 
-            // deactivate interact button
-            canvasEvents.SetInteractButton(false);
-        }
+        InteractableEnd();
     }
 
-    public void Equip()
+    public void InteractableEnd()
     {
-        if (weaponToPickup)
-        {
-            weaponManger.Equip(weaponToPickup); // equip weapon on the players WeaponManager
-            canvasEvents.SetInteractButton(false);
-        }
-
-        onPickUp.Invoke();
+        GameManager.Instance.CanvasEvents.SetInteractButton(false);
     }
 }
-

@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /// 6/3/18
 /// </summary>
 public class ProjectileWeapon : Weapon
-{
+{ 
     [SerializeField] protected float shootSpeed;
     [SerializeField] protected int damage;
     [Tooltip("Total ammo not in the clip")]
@@ -111,6 +111,7 @@ public class ProjectileWeapon : Weapon
 
             // instantiate projectile
             Projectile proj = Instantiate(projectile, firePoint.position, firePoint.rotation).GetComponent<Projectile>();
+            proj.damage = damage;
 
             // apply recoil
             float offset = Random.Range(minRecoil, maxRecoil) * Random.Range(-1, 2); 

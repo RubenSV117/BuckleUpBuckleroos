@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -12,10 +13,20 @@ using UnityEngine.UI;
 public class CanvasEvents : MonoBehaviour
 {
     [SerializeField] private GameObject interactButton;
+    [SerializeField] private GameObject MoveButton;
+    [SerializeField] private GameObject AttackButton;
     [SerializeField] private Image interactIcon;
 
     public delegate void Interact();
     public event Interact OnInteract;
+
+    private InputManager input;
+
+    void Awake()
+    {
+        GameManager.Instance.CanvasEvents = this;
+        input = GameManager.Instance.Input;
+    }
  
     public void SetInteractButton(bool activated)
     {

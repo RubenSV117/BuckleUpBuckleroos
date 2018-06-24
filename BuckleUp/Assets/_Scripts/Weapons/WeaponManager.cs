@@ -49,36 +49,43 @@ public class WeaponManager : MonoBehaviour
             equippedWeapon.OnUnequip();
             weapons.Remove(equippedWeapon);
             equippedWeapon.transform.SetParent(null);
+            equippedWeapon.transform.localScale = Vector2.one;
 
-            weapons.Add(w); // add Weapon script to this list 
+            // add Weapon script to this list 
+            weapons.Add(w); 
 
             // parent new weapon to equipepd attach point 
             w.transform.SetParent(equippedAttachPoint);
             w.transform.localPosition = Vector3.zero;
             w.transform.localEulerAngles = Vector3.zero;
 
+            w.transform.localScale = new Vector3(w.transform.localScale.x * (GameManager.Instance.LocalPlayer.isFacingRight ? 1 : -1), w.transform.localScale.y, w.transform.localScale.z);
+
             // render  in front of the player
             foreach (var sr in w.SpriteRenderers)
                 sr.sortingOrder = equippedWeaponSortOrder;
 
+            // make new weapon the equipped weapon
+            equippedWeapon = w;
             w.OnEquip();
         }
 
         // else pick up the weapon and move it to unequipped point
         else if (weapons.Count < maxWeapons)
         {
-            weapons.Add(w); // add Weapon script to this list 
+            // add Weapon script to this list 
+            weapons.Add(w); 
 
             //parent new weapon to unequipepd attach point 
             w.transform.SetParent(unequippedAttachPoint);
             w.transform.localPosition = Vector3.zero;
             w.transform.localEulerAngles = Vector3.zero;
+            w.transform.localScale =  new Vector3(w.transform.localScale.x * (GameManager.Instance.LocalPlayer.isFacingRight ? 1 : -1), w.transform.localScale.y, w.transform.localScale.z);
 
             // render behind the player
             foreach (var sr in w.SpriteRenderers)
                 sr.sortingOrder = unequippedWeaponSortOrder;
         }
-
     }
 
     public void CycleWeapon()

@@ -12,9 +12,15 @@ public class Player : MonoBehaviour
     // transforms on the player used for cinemachine vcams
     public Transform AimTransform;
     public Transform FollowTransform;
+    public WeaponManager WeaponManager;
 
     [HideInInspector]
     public bool isFacingRight;
+
+    void Awake()
+    {
+        WeaponManager = GetComponent<WeaponManager>();
+    }
 
     void Start()
     {
