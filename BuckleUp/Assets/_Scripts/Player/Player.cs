@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public Transform AimTransform;
     public Transform FollowTransform;
     public WeaponManager WeaponManager;
+    public Health Health;
 
     [HideInInspector]
     public bool isFacingRight;
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     void Awake()
     {
         WeaponManager = GetComponent<WeaponManager>();
+        Health = GetComponent<Health>();
     }
 
     void Start()
