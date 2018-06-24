@@ -30,7 +30,7 @@ public class SniperRifle : ProjectileWeapon
     // Raycast for a hit detection b/c for the distance and speed a sniper shot travels, OnCollisionEnter is not fully reliable
     public override void Attack()
     {
-        if (raycastOnCooldown || currentClipAmmo == 0)
+        if (raycastOnCooldown || currentImmediateAttacks == 0)
             return;
 
         // use base attack, the projectile on this weapon however will only be used as a bullet tracer with the trail renderer

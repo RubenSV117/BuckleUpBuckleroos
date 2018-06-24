@@ -62,7 +62,7 @@ public class InputManager : MonoBehaviour
                 // initial left side touch for movement
                 if (touch.phase == TouchPhase.Began && 
                     Camera.main.ScreenToViewportPoint(touch.position).x < .25f &&
-                    Camera.main.ScreenToViewportPoint(touch.position).y < .5f)
+                    Camera.main.ScreenToViewportPoint(touch.position).y < .35f)
                 {
                     initialMoveTouchPosition = touch.position;
                     isMoving = true;
@@ -91,11 +91,10 @@ public class InputManager : MonoBehaviour
                         
                 }
               
-
                 // initial right side touch for aiming
-                else if (touch.phase == TouchPhase.Began && 
-                         Camera.main.ScreenToViewportPoint(touch.position).x > .75f &&
-                         Camera.main.ScreenToViewportPoint(touch.position).y < .5f)
+                if (touch.phase == TouchPhase.Began && 
+                         Camera.main.ScreenToViewportPoint(touch.position).x > .8f &&
+                         Camera.main.ScreenToViewportPoint(touch.position).y < .35f)
                 {
                     initialShootTouchPosition = touch.position;
                     isAttacking = true;

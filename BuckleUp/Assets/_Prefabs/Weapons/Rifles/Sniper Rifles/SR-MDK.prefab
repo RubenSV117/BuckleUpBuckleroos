@@ -67,6 +67,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4329122106693114}
   - component: {fileID: 61473647108681484}
+  - component: {fileID: 114418581795889156}
   m_Layer: 0
   m_Name: PickupTrigger
   m_TagString: Untagged
@@ -374,7 +375,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1586187984177696}
   m_LocalRotation: {x: -0.00000014751392, y: -0.7071068, z: -0.00000014751392, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: -0.46000004, y: 0.00000019192689, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4938640421457316}
@@ -390,7 +391,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1042534142742676}
   m_LocalRotation: {x: -0, y: -0, z: 0.00000020861616, w: 1}
-  m_LocalPosition: {x: 2.15, y: 0.28, z: 0}
+  m_LocalPosition: {x: 3.0599995, y: 0.27999997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4809652003616652}
@@ -497,7 +498,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d8fe5c28d80abc74984e46d37d05322d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -694,10 +695,10 @@ MonoBehaviour:
   - {fileID: 212678330745763528}
   - {fileID: 212959695627540896}
   - {fileID: 212302781854875916}
-  shootSpeed: 100
+  maxImmediateAttacks: 4
+  maxSupplementaryAttacks: 12
+  shootSpeed: 1000
   damage: 50
-  maxReloadAmmo: 8
-  maxClipAmmo: 4
   projectile: {fileID: 1701300119429184, guid: 2f1528e8eeb230440843835aee171102, type: 2}
   muzzleFlash: {fileID: 198580193678250706}
   firePoint: {fileID: 4837799509538192}
@@ -731,6 +732,17 @@ MonoBehaviour:
   Speed: {x: -2, y: -3, z: 0}
   RotationSpeed: 720
   Lifetime: 0.5
+--- !u!114 &114418581795889156
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1230228160423632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcdce73359b6e7b4bafb52ecd8a360f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198057956629691892
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -19197,7 +19209,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1618302301
   m_SortingLayer: 2
-  m_SortingOrder: 345
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300008, guid: 6cc5b9dc6adeae4459ec101fb818632e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -19242,7 +19254,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1618302301
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 6cc5b9dc6adeae4459ec101fb818632e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -19332,7 +19344,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1618302301
   m_SortingLayer: 2
-  m_SortingOrder: 355
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300018, guid: 6cc5b9dc6adeae4459ec101fb818632e, type: 3}
   m_Color: {r: 0, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -19377,7 +19389,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1618302301
   m_SortingLayer: 2
-  m_SortingOrder: 320
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300002, guid: 6cc5b9dc6adeae4459ec101fb818632e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

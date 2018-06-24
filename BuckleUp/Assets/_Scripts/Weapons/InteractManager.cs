@@ -30,7 +30,7 @@ public class InteractManager : MonoBehaviour
             interactableObject.InteractableBegin();
 
             // activate interact button
-            canvasEvents.SetInteractButton(true);
+            canvasEvents.SetInteractButtonActive(true);
         }
     }
 
@@ -39,11 +39,10 @@ public class InteractManager : MonoBehaviour
         if (other.transform.root.GetComponentInChildren<Weapon>() != null)
         {
             // unsubscribe the interacting player's OnInteract event to Equip
-            if(interactableObject != null)
-                canvasEvents.OnInteract -= interactableObject.Interact;
+            canvasEvents.OnInteract -= interactableObject.Interact;
 
             // deactivate interact button
-            canvasEvents.SetInteractButton(false);
+            canvasEvents.SetInteractButtonActive(false);
         }
     }
 }

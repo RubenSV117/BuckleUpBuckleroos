@@ -740,10 +740,10 @@ MonoBehaviour:
   - {fileID: 212795197765572454}
   - {fileID: 212228677584984476}
   - {fileID: 212762756937564568}
+  maxImmediateAttacks: 12
+  maxSupplementaryAttacks: 36
   shootSpeed: 40
   damage: 12
-  maxReloadAmmo: 72
-  maxClipAmmo: 36
   projectile: {fileID: 1911923633919226, guid: 7c389dba7ecaf0e49a960b6e3261ac0d, type: 2}
   muzzleFlash: {fileID: 198754122182489388}
   firePoint: {fileID: 4548858313224530}
@@ -752,8 +752,8 @@ MonoBehaviour:
   autoFireRate: 5
   burst: 1
   fireBurstCount: 3
-  fireRate: 12
-  burstCooldown: 0.5
+  fireRate: 15
+  burstCooldown: 0.3
   onShoot:
     m_PersistentCalls:
       m_Calls: []
@@ -19281,7 +19281,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1618302301
   m_SortingLayer: 2
-  m_SortingOrder: 320
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300002, guid: 60cbfcb0d841cc94dae6730c85464748, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -19326,7 +19326,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1618302301
   m_SortingLayer: 2
-  m_SortingOrder: 335
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 60cbfcb0d841cc94dae6730c85464748, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -19416,7 +19416,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1618302301
   m_SortingLayer: 2
-  m_SortingOrder: 345
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300008, guid: 60cbfcb0d841cc94dae6730c85464748, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -19461,7 +19461,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1618302301
   m_SortingLayer: 2
-  m_SortingOrder: 355
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300018, guid: 60cbfcb0d841cc94dae6730c85464748, type: 3}
   m_Color: {r: 0.8520789, g: 0, b: 1, a: 1}
   m_FlipX: 0

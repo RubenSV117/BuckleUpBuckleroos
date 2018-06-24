@@ -13,22 +13,24 @@ using UnityEngine.UI;
 public class CanvasEvents : MonoBehaviour
 {
     [SerializeField] private GameObject interactButton;
-    [SerializeField] private GameObject MoveButton;
-    [SerializeField] private GameObject AttackButton;
     [SerializeField] private Image interactIcon;
+
+    [SerializeField] private GameObject cycleBar;
+    [SerializeField] private Image leftWeapon;
+    [SerializeField] private Image rightWeapon;
 
     public delegate void Interact();
     public event Interact OnInteract;
 
-    private InputManager input;
+    private CanvasAnimationController canvasAnim;
 
     void Awake()
     {
         GameManager.Instance.CanvasEvents = this;
-        input = GameManager.Instance.Input;
+        canvasAnim = GetComponent<CanvasAnimationController>();
     }
  
-    public void SetInteractButton(bool activated)
+    public void SetInteractButtonActive(bool activated)
     {
         interactButton.SetActive(activated);
     }
@@ -42,5 +44,27 @@ public class CanvasEvents : MonoBehaviour
     public void SetInteractButtonIcon(Sprite icon)
     {
         interactIcon.sprite = icon;
+    }
+
+    // update wepaon images when equipped weapon is dropped for a new weapon 
+    public void UpdateWeaponCycleBar(Sprite newWeapon)
+    {
+        if (canvasAnim.isOnleft)
+            leftWeapon.sprite = newWeapon;
+
+        else
+            rightWeapon.sprite = newWeapon;
+    }
+
+    // initialize weapon images when the player first picks up a second weapon that can be cycled to
+    public void InitializeWeaponCycleBar(Sprite left, Sprite right)
+    {
+        leftWeapon.sprite = left;
+        rightWeapon.sprite = right;
+    }
+
+    public void SetWeaponCycleBarActive(bool activated)
+    {
+        cycleBar.SetActive(activated);
     }
 }

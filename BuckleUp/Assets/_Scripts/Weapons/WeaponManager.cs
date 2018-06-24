@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Manages weapon inventory and cycling
+/// Subscribes methods to Input attack and cycle events
+/// Sends new weapon info to CanvasEvents to update UI
 /// 
 /// Ruben Sanchez
 /// 6/3/18 
@@ -19,14 +21,13 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private int unequippedWeaponSortOrder;
     [SerializeField] private int equippedWeaponSortOrder;
 
-    private WeaponModelSwap modelSwap; // on the animator object, used for animation events during weapon swap
     private InputManager input;
-    private Weapon equippedWeapon;
+    public Weapon equippedWeapon { get; private set; }
+
+    private CanvasEvents canvasEvents; // used to update the weapons in the UI cycle bar
 
     private void Awake()
     {
-        modelSwap = GetComponentInChildren<WeaponModelSwap>();
-
         equippedWeapon = weapons[0];
 
         foreach (var sr in equippedWeapon.SpriteRenderers)
@@ -37,6 +38,11 @@ public class WeaponManager : MonoBehaviour
         // subscribe events 
         input.OnAttack += Attack;
         input.OnWeaponCycle += CycleWeapon;
+    }
+
+    private void Start()
+    {
+        canvasEvents = GameManager.Instance.CanvasEvents;
     }
 
     public void Equip(Weapon w)
@@ -50,6 +56,8 @@ public class WeaponManager : MonoBehaviour
             weapons.Remove(equippedWeapon);
             equippedWeapon.transform.SetParent(null);
             equippedWeapon.transform.localScale = Vector2.one;
+            equippedWeapon.transform.position = w.transform.position;
+            equippedWeapon.transform.eulerAngles = w.transform.eulerAngles;
 
             // add Weapon script to this list 
             weapons.Add(w); 
@@ -68,6 +76,9 @@ public class WeaponManager : MonoBehaviour
             // make new weapon the equipped weapon
             equippedWeapon = w;
             w.OnEquip();
+
+            // update UI cycle bar with the new weapon
+            canvasEvents.UpdateWeaponCycleBar(w.SpriteRenderers[0].sprite);
         }
 
         // else pick up the weapon and move it to unequipped point
@@ -85,6 +96,10 @@ public class WeaponManager : MonoBehaviour
             // render behind the player
             foreach (var sr in w.SpriteRenderers)
                 sr.sortingOrder = unequippedWeaponSortOrder;
+
+            // activate UI weapon cycle bar and initialize the weapon images
+            canvasEvents.InitializeWeaponCycleBar(equippedWeapon.SpriteRenderers[0].sprite, w.SpriteRenderers[0].sprite);
+            canvasEvents.SetWeaponCycleBarActive(true);
         }
     }
 

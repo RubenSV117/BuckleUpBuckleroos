@@ -3479,10 +3479,10 @@ MonoBehaviour:
   - {fileID: 212258044150200434}
   - {fileID: 212422910991442328}
   - {fileID: 212440096261423144}
+  maxImmediateAttacks: 0
+  maxSupplementaryAttacks: 0
   shootSpeed: 30
   damage: 7
-  maxReloadAmmo: 100
-  maxClipAmmo: 20
   projectile: {fileID: 1074319443444484, guid: 2d00732857908ac4e8aea0dfe50fb987, type: 2}
   muzzleFlash: {fileID: 198746735761679090}
   firePoint: {fileID: 4629106845825730}

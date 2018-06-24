@@ -18,11 +18,13 @@ public class WeaponPickUp : MonoBehaviour, IInteractable
 
     public void InteractableBegin()
     {
+        // set interact button icon to this weapon's main sprite
         GameManager.Instance.CanvasEvents.SetInteractButtonIcon(weapon.SpriteRenderers[0].sprite);
     }
 
     public void Interact()
     {
+        // equip this weapon to the player
         WeaponManager wm = GameManager.Instance.LocalPlayer.WeaponManager;
 
         if (!wm.weapons.Contains(weapon))
@@ -33,6 +35,7 @@ public class WeaponPickUp : MonoBehaviour, IInteractable
 
     public void InteractableEnd()
     {
-        GameManager.Instance.CanvasEvents.SetInteractButton(false);
+        // disable interact button
+        GameManager.Instance.CanvasEvents.SetInteractButtonActive(false);
     }
 }

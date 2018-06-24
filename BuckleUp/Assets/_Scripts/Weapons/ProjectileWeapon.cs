@@ -13,8 +13,7 @@ public class ProjectileWeapon : Weapon
     [SerializeField] protected float shootSpeed;
     [SerializeField] protected int damage;
     [Tooltip("Total ammo not in the clip")]
-    [SerializeField] protected int maxReloadAmmo;
-    [SerializeField] protected int maxClipAmmo;
+
     [SerializeField] protected GameObject projectile;
     [SerializeField] protected ParticleSystem muzzleFlash;
     [SerializeField] protected Transform firePoint;
@@ -54,9 +53,6 @@ public class ProjectileWeapon : Weapon
     protected bool onCooldown;
     protected Coroutine burstFireCoroutine;
 
-    protected float currentReloadAmmo;
-    protected float currentClipAmmo;
-
     protected AudioSource audioS;
 
     private void OnDisable()
@@ -68,8 +64,8 @@ public class ProjectileWeapon : Weapon
 
     private void Awake()
     {
-        currentReloadAmmo = maxReloadAmmo;
-        currentClipAmmo = maxClipAmmo;
+        currentSupplementaryAttacks = maxSupplementaryAttacks;
+        currentImmediateAttacks = maxImmediateAttacks;
 
         audioS = GetComponent<AudioSource>();
     }
@@ -105,9 +101,9 @@ public class ProjectileWeapon : Weapon
     private void FireSingleShot()
     {
         // if weapon still has ammo in the clip
-        if (currentClipAmmo > 0) 
+        if (currentImmediateAttacks > 0) 
         {
-            currentClipAmmo--;
+            currentImmediateAttacks--;
 
             // instantiate projectile
             Projectile proj = Instantiate(projectile, firePoint.position, firePoint.rotation).GetComponent<Projectile>();
@@ -126,7 +122,7 @@ public class ProjectileWeapon : Weapon
             muzzleFlash.Play();
 
             // if you're out of ammo in the clip but have enough to reload
-            if (currentClipAmmo == 0 && currentReloadAmmo > 0) 
+            if (currentImmediateAttacks == 0 && currentSupplementaryAttacks > 0) 
                 Reload();
         }
     }
@@ -134,29 +130,29 @@ public class ProjectileWeapon : Weapon
     public void Reload()
     {
         // if you still have enough ammo for a full clip
-        if (currentReloadAmmo > maxClipAmmo)
+        if (currentSupplementaryAttacks > maxImmediateAttacks)
         {
-            currentReloadAmmo -= (maxClipAmmo - currentClipAmmo); // subtract only the ammo missing from the clip
-            currentClipAmmo = maxClipAmmo;
+            currentSupplementaryAttacks -= (maxImmediateAttacks - currentImmediateAttacks); // subtract only the ammo missing from the clip
+            currentImmediateAttacks = maxImmediateAttacks;
         }
         
         // else reload the rest of the ammo
         else
         {
-            currentClipAmmo = currentReloadAmmo;
-            currentReloadAmmo = 0;
+            currentImmediateAttacks = currentSupplementaryAttacks;
+            currentSupplementaryAttacks = 0;
         }
     }
 
     public void AddAmo(int amount)
     {
         // if amount would fill up your max
-        if (currentReloadAmmo + amount >= maxReloadAmmo)
-            currentReloadAmmo = maxReloadAmmo;
+        if (currentSupplementaryAttacks + amount >= maxSupplementaryAttacks)
+            currentSupplementaryAttacks = maxSupplementaryAttacks;
 
         // else just add the amount
         else
-            currentReloadAmmo += amount;
+            currentSupplementaryAttacks += amount;
     }
 
 

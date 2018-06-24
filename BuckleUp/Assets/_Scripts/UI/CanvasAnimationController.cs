@@ -10,17 +10,16 @@
 public class CanvasAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator weaponCycleAnim;
-    private bool cycleRight = true;
-
+    public bool isOnleft = true;
 
     public void PlayCycleKnobAnim()
     {
-        if(cycleRight)
+        if(isOnleft)
             weaponCycleAnim.Play("CycleRight");
 
         else
             weaponCycleAnim.Play("CycleLeft");
 
-        cycleRight = !cycleRight;
+        isOnleft = !isOnleft;
     }
 }
