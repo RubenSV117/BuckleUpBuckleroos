@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// 6/7/18
 /// </summary>
 
-public class DisplayAttacksLeft : MonoBehaviour
+public class DisplayAttacksLeft : Photon.MonoBehaviour
 {
     private Text attackText;
     private WeaponManager weaponManager;
@@ -16,17 +16,23 @@ public class DisplayAttacksLeft : MonoBehaviour
 	void Start ()
 	{
 	    attackText = GetComponent<Text>();
-	    weaponManager = GameManager.Instance.LocalPlayer.WeaponManager;
+	    weaponManager = GetComponent<WeaponManager>();
 	}
 	
 	void Update ()
 	{
-	    if (weaponManager.equippedWeapon is ProjectileWeapon)
-	        attackText.text = "" + weaponManager.equippedWeapon.currentImmediateAttacks + "/" +
-	                        weaponManager.equippedWeapon.currentSupplementaryAttacks;
+	    //if (!photonView.isMine)
+	    //    return;
 
-	    else
-	        attackText.text = "" + weaponManager.equippedWeapon.currentImmediateAttacks;
+	    //if (!attackText)
+	    //    return;
+
+	    //if (weaponManager.equippedWeapon is ProjectileWeapon)
+	    //    attackText.text = "" + weaponManager.equippedWeapon.currentImmediateAttacks + "/" +
+	    //                    weaponManager.equippedWeapon.currentSupplementaryAttacks;
+
+	    //else
+	    //    attackText.text = "" + weaponManager.equippedWeapon.currentImmediateAttacks;
 
 	}
 }

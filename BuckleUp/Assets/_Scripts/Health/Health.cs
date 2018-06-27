@@ -28,6 +28,6 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
-        gameObject.SetActive(false);
+        PhotonManager.Instance.LeaveRoom();
     }
 }

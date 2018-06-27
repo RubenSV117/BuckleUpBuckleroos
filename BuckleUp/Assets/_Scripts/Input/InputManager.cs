@@ -8,12 +8,16 @@ using UnityEngine;
 /// 5/16/18
 /// </summary>
 
-public class InputManager : MonoBehaviour
+public class InputManager : Photon.MonoBehaviour
 {
-    public Vector2 AimSensitivity = new Vector2(6, .6f);
-    public Vector2 AimDamping = new Vector2(.05f, .1f);
+    // Values for 3D
+    //public Vector2 AimSensitivity = new Vector2(6, .6f);
+    //public Vector2 AimDamping = new Vector2(.05f, .1f);
 
-    public bool IsAiming;
+    //[Tooltip("Amount of normal sensitivity to use when zoomed aiming")]
+    //[SerializeField] private float aimSensitivityMultiplier = .2f;
+
+    public bool IsAiming { get; private set; }
 
     [HideInInspector] public Vector2 MoveDirection;
     [HideInInspector] public Vector2 AimDirection;
@@ -40,9 +44,6 @@ public class InputManager : MonoBehaviour
     public delegate void Sprint(bool isSprinting);
     public event Sprint OnSprintChange;
 
-    [Tooltip("Amount of normal sensitivity to use when zoomed aiming")]
-    [SerializeField] private float aimSensitivityMultiplier = .2f;
-
     private bool isMoving;
     private bool isAttacking;
 
@@ -53,82 +54,85 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        // Touch Input
-#if UNITY_ANDROID || UNITY_IOS
+        if (photonView.isMine)
         {
-            // Manage current touches
-            foreach (Touch touch in Input.touches)
+            // Touch Input
+#if UNITY_ANDROID || UNITY_IOS
             {
-                // initial left side touch for movement
-                if (touch.phase == TouchPhase.Began && 
-                    Camera.main.ScreenToViewportPoint(touch.position).x < .25f &&
-                    Camera.main.ScreenToViewportPoint(touch.position).y < .35f)
+                // Manage current touches
+                foreach (Touch touch in Input.touches)
                 {
-                    initialMoveTouchPosition = touch.position;
-                    isMoving = true;
-                }
-
-                if (isMoving)
-                {
-                    // movement touch dragged passed threshold
-                    if ((touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved) &&
-                        Camera.main.ScreenToViewportPoint(touch.position).x < .5f)
+                    // initial left side touch for movement
+                    if (touch.phase == TouchPhase.Began &&
+                        Camera.main.ScreenToViewportPoint(touch.position).x < .25f &&
+                        Camera.main.ScreenToViewportPoint(touch.position).y < .35f)
                     {
-                        Vector2 delta = touch.position - initialMoveTouchPosition;
-
-                        MoveDirection = delta.magnitude > minDeltaThreshold
-                            ? Vector3.Normalize(delta)
-                            : Vector3.zero;
+                        initialMoveTouchPosition = touch.position;
+                        isMoving = true;
                     }
 
-                    // release of move touch
-                    else if (touch.phase == TouchPhase.Ended &&
-                             Camera.main.ScreenToViewportPoint(touch.position).x < .5f)
+                    if (isMoving)
                     {
-                        isMoving = false;
-                        MoveDirection = Vector3.zero;
+                        // movement touch dragged passed threshold
+                        if ((touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved) &&
+                            Camera.main.ScreenToViewportPoint(touch.position).x < .5f)
+                        {
+                            Vector2 delta = touch.position - initialMoveTouchPosition;
+
+                            MoveDirection = delta.magnitude > minDeltaThreshold
+                                ? Vector3.Normalize(delta)
+                                : Vector3.zero;
+                        }
+
+                        // release of move touch
+                        else if (touch.phase == TouchPhase.Ended &&
+                                 Camera.main.ScreenToViewportPoint(touch.position).x < .5f)
+                        {
+                            isMoving = false;
+                            MoveDirection = Vector3.zero;
+                        }
+
                     }
-                        
-                }
-              
-                // initial right side touch for aiming
-                if (touch.phase == TouchPhase.Began && 
-                         Camera.main.ScreenToViewportPoint(touch.position).x > .8f &&
-                         Camera.main.ScreenToViewportPoint(touch.position).y < .35f)
-                {
-                    initialShootTouchPosition = touch.position;
-                    isAttacking = true;
-                    OnAttack.Invoke();
-                }
 
-                if (isAttacking)
-                {
-                    // aim touch dragged passed threshold
-                    if ((touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved) && Camera.main.ScreenToViewportPoint(touch.position).x > .5f)
+                    // initial right side touch for aiming
+                    if (touch.phase == TouchPhase.Began &&
+                        Camera.main.ScreenToViewportPoint(touch.position).x > .8f &&
+                        Camera.main.ScreenToViewportPoint(touch.position).y < .35f)
                     {
-                        Vector2 delta = touch.position - initialShootTouchPosition;
-
-                        AimDirection = delta.magnitude > minDeltaThreshold
-                            ? Vector3.Normalize(delta)
-                            : Vector3.zero;
-
+                        initialShootTouchPosition = touch.position;
+                        isAttacking = true;
                         OnAttack.Invoke();
-
                     }
 
-                    // release of aim touch
-                    else if (touch.phase == TouchPhase.Ended &&
-                             Camera.main.ScreenToViewportPoint(touch.position).x > .5f)
+                    if (isAttacking)
                     {
-                        isAttacking = false;
-                        AimDirection = Vector3.zero;
-                    }
-                }
-            
-            }
+                        // aim touch dragged passed threshold
+                        if ((touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved) &&
+                            Camera.main.ScreenToViewportPoint(touch.position).x > .5f)
+                        {
+                            Vector2 delta = touch.position - initialShootTouchPosition;
 
-        }
-        // Contoller/Keyboard Input
+                            AimDirection = delta.magnitude > minDeltaThreshold
+                                ? Vector3.Normalize(delta)
+                                : Vector3.zero;
+
+                            OnAttack.Invoke();
+
+                        }
+
+                        // release of aim touch
+                        else if (touch.phase == TouchPhase.Ended &&
+                                 Camera.main.ScreenToViewportPoint(touch.position).x > .5f)
+                        {
+                            isAttacking = false;
+                            AimDirection = Vector3.zero;
+                        }
+                    }
+
+                }
+
+            }
+            // Contoller/Keyboard Input
 #else
         {
         MoveDirection = new Vector3(Input.GetAxis("HorizontalMove"), 0, Input.GetAxis("VerticalMove"));
@@ -195,5 +199,6 @@ public class InputManager : MonoBehaviour
     }
     
 #endif
+        }
     }
 }

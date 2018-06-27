@@ -22,7 +22,7 @@ public class TransformOffset : MonoBehaviour
 
     private void Awake()
     {
-        input = GameManager.Instance.Input;
+        input = Player.localPlayer.input;
         GameManager.Instance.CameraLookAtOffset = startingLookAhead; // set starting value
         targetPosition = transformToMove.position;
 

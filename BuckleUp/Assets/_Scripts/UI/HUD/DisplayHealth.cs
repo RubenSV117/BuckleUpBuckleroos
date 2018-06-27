@@ -16,11 +16,11 @@ public class DisplayHealth : MonoBehaviour
 	void Start ()
 	{
 	    healthText = GetComponent<Text>();
-	    health = GameManager.Instance.LocalPlayer.Health;
 	}
 	
 	void Update ()
 	{
-	    healthText.text = "" +  health.currentHealth;
+        //if(healthText)
+	       // healthText.text = "" +  health.currentHealth;
 	}
 }

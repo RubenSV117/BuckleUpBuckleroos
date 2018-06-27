@@ -22,7 +22,7 @@ namespace Assets.HeroEditor.Common.CharacterScripts
 
         private void Awake()
         {
-            input = GameManager.Instance.Input;
+            input = GetComponent<InputManager>();
         }
 
         public void Update()

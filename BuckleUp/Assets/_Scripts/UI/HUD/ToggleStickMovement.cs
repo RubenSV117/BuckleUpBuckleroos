@@ -25,9 +25,13 @@ public class ToggleStickMovement : MonoBehaviour
 
     private void Awake()
     {
-        input = GameManager.Instance.Input;
         originalMovePosition = moveMidPoint.localPosition;
         originalAimPosition = aimMidPoint.localPosition;
+    }
+
+    void Start()
+    {
+        input = Player.localPlayer.input;
     }
 
     void Update()

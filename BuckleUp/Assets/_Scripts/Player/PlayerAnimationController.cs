@@ -21,7 +21,7 @@ public class PlayerAnimationController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         weaponManager = GetComponent<WeaponManager>();
 
-        input = GameManager.Instance.Input;
+        input = GetComponent<InputManager>();
 
         // subscribe event methods to Input events
         input.OnSprintChange += SetSprint;

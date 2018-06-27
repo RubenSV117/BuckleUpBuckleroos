@@ -14,18 +14,23 @@ public class Player : MonoBehaviour
     public Transform FollowTransform;
     public WeaponManager WeaponManager;
     public Health Health;
+    public GameObject Camera;
+    public InputManager input;
 
     [HideInInspector]
     public bool isFacingRight;
 
+    public static Player localPlayer;
+
     void Awake()
     {
+        if (localPlayer == null) 
+            localPlayer = this;
+
         WeaponManager = GetComponent<WeaponManager>();
         Health = GetComponent<Health>();
-    }
+        input = GetComponent<InputManager>();
 
-    void Start()
-    {
-        GameManager.Instance.LocalPlayer = this;
+        Camera.SetActive(true);
     }
 }

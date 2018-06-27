@@ -9,7 +9,7 @@ using UnityEngine.Events;
 /// 5/27/28
 /// </summary>
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Photon.PunBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float moveSpeedWhileFiring;
@@ -39,11 +39,17 @@ public class PlayerMovement : MonoBehaviour
 
     private Player localPlayer;
 
+    private Vector2 selfPosition;
+    private float networkMovementLerpSpeed = 10;
+
     private void Awake()
     {
+        if (!photonView.isMine)
+            return;
+
         rigidB = GetComponent<Rigidbody2D>();
 
-        input = GameManager.Instance.Input;
+        input = GetComponent<InputManager>();
 
         // subscribe movement methods to Input events
         input.OnSprintChange += SetSprint;
@@ -57,34 +63,43 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move()
     {
-        if (canControlMove) // control deactivated during roll
-        {
-            float currentSpeed = input.AimDirection.magnitude == 0 ? moveSpeed : moveSpeedWhileFiring; // set speed according to firing state
-            Vector3 moveVelocity = input.MoveDirection * (isSprinting ? currentSpeed * sprintSpeedMultiplier : currentSpeed); // apply speed boost if sprinting
-            rigidB.velocity = new Vector2(moveVelocity.x, moveVelocity.y);
-        }
+        if (!photonView.isMine)
+            return;
+
+        float currentSpeed =
+            input.AimDirection.magnitude == 0 ? moveSpeed : moveSpeedWhileFiring; // set speed according to firing state
+        Vector3 moveVelocity =
+            input.MoveDirection *
+            (isSprinting ? currentSpeed * sprintSpeedMultiplier : currentSpeed); // apply speed boost if sprinting
+        rigidB.velocity = new Vector2(moveVelocity.x, moveVelocity.y);
+
     }
 
     public void RotateCharacter()
     {
+        if (!photonView.isMine)
+            return;
+
         if (input.AimDirection.magnitude != 0)
         {
-            rendererTransform.localScale = new Vector3(input.AimDirection.x > 0 ? originalScale.x : -originalScale.x, originalScale.y, originalScale.z);
+            rendererTransform.localScale =
+                new Vector3(input.AimDirection.x > 0 ? originalScale.x : -originalScale.x, originalScale.y,
+                    originalScale.z);
 
             alignedArm.right = input.AimDirection * rendererTransform.localScale.x;
             localPlayer.isFacingRight = input.AimDirection.x > 0;
         }
-   
+
         else if (input.MoveDirection.magnitude != 0)
         {
-            rendererTransform.localScale = new Vector3(input.MoveDirection.x > 0 ? originalScale.x : -originalScale.x, originalScale.y, originalScale.z);
+            rendererTransform.localScale =
+                new Vector3(input.MoveDirection.x > 0 ? originalScale.x : -originalScale.x, originalScale.y,
+                    originalScale.z);
 
             alignedArm.right = input.MoveDirection * rendererTransform.localScale.x;
             localPlayer.isFacingRight = input.MoveDirection.x > 0;
         }
-
     }
-
 
     public void SetSprint(bool isSprinting)
     {

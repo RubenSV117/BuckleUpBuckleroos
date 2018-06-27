@@ -25,7 +25,7 @@ public class GameManager
             {
                 mInstance = new GameManager();
                 mInstance.gameObj = new GameObject("GameManager");
-                mInstance.gameObj.AddComponent<InputManager>();
+                //mInstance.gameObj.AddComponent<InputManager>();
             }
 
             return mInstance;

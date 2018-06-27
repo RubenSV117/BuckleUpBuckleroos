@@ -32,17 +32,15 @@ public class WeaponManager : MonoBehaviour
 
         foreach (var sr in equippedWeapon.SpriteRenderers)
             sr.sortingOrder = equippedWeaponSortOrder;
-        
-        input = GameManager.Instance.Input;
-
-        // subscribe events 
-        input.OnAttack += Attack;
-        input.OnWeaponCycle += CycleWeapon;
     }
 
     private void Start()
     {
         canvasEvents = GameManager.Instance.CanvasEvents;
+        input = Player.localPlayer.input;
+        // subscribe events 
+        input.OnAttack += Attack;
+        input.OnWeaponCycle += CycleWeapon;
     }
 
     public void Equip(Weapon w)
